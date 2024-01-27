@@ -39,8 +39,17 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     res.status(200).json({d})
   })
   dumperrouter.get("/dumpers",async (req,res)=>{
-    const dumpers=await Dumper.find({})
-    res.status(200).json(dumpers)
+    let dumpers=await Dumper.find({})
+    let ds=[]
+    for (let i = 0; i < dumpers.length; i++) {
+        let element = dumpers[i];
+        element.location=element.pos
+        element=await element.save()
+        ds.push(element)
+
+        
+    }
+    res.status(200).json(ds)
   })
 
   dumperrouter.post("/reset",async (req,res)=>{
