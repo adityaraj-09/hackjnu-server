@@ -68,7 +68,7 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
         let dumper= await Dumper.findById(dumpId)
         let shovel=await Shovel.findById(dumper.shovelConn)
         shovel.dumperConn=""
-        
+        await shovel.save()
         dumper.shovelConn=""
         dumper.location=loc
         dumper=await dumper.save()
