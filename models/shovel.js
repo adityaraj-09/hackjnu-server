@@ -25,6 +25,10 @@ const shovel_sch=mongoose.Schema({
     listConn:{
         type:Array,
         default:[]
+    },
+    pos:{
+        type:Array,
+        default:[]
     }
 
 })

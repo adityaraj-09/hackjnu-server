@@ -20,4 +20,8 @@ shovelrouter.post("/addShovel",async (req,res)=>{
         res.status(500).json({msg:error.message})
     }
 })
+shovelrouter.get("/shovels",async (req,res)=>{
+    const shovels=await Shovel.find({})
+    res.status(200).json(shovels)
+  })
 module.exports=shovelrouter

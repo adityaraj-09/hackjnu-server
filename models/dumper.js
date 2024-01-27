@@ -28,6 +28,11 @@ const dumper_sch=mongoose.Schema({
     owner:{
         type:Array,
         default:[]
+    },
+    
+    pos:{
+        type:Array,
+        default:[]
     }
     
 })
