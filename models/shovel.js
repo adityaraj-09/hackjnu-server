@@ -15,8 +15,8 @@ const shovel_sch=mongoose.Schema({
         default:3000
     },
     dumperConn:{
-        type:Array,
-        default:[]
+        type:String,
+        default:""
     },
     owner:{
         type:Array,

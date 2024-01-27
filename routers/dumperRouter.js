@@ -50,6 +50,7 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
         dumper.location=loc
         dumper.status=0
         dumper.filled=0;
+        dumper.location=dumper.pos
         dumper.venue=[]
         dumper=await dumper.save()
         res.status(200).json(dumper)
@@ -64,6 +65,9 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     try {
         let {dumpId,loc}=req.body; 
         let dumper= await Dumper.findById(dumpId)
+        let shovel=await Shovel.findById(dumper.shovelConn)
+        shovel.dumperConn=""
+        
         dumper.shovelConn=""
         dumper.location=loc
         dumper=await dumper.save()
@@ -80,6 +84,7 @@ dumperrouter.post("/getShovel",async (req,res)=>{
         let shovel=await Shovel.find()
         let mindis=0
         let dumper= await Dumper.findById(dumpId)
+        dumper.location=dumper.pos
         let location=dumper.location
 
         for (let i = 0; i < shovel.length; i++) {
@@ -105,9 +110,12 @@ dumperrouter.post("/getShovel",async (req,res)=>{
         await dumper.save()
         
         let l=finalShovel.listConn
-        if(!l.includes(sh_id)){
+        if(finalShovel.dumperConn!=""){
 
-            l.push(sh_id)
+            if(!l.includes(sh_id)){
+    
+                l.push(sh_id)
+            }
         }
         finalShovel.listConn=l
         finalShovel=await finalShovel.save()
