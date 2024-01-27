@@ -26,7 +26,8 @@ shovelrouter.get("/shovels",async (req,res)=>{
   })
 shovelrouter.get("/shovel/:id",async (req,res)=>{
     const {id}=req.params
-    const shovels=await Shovel.findById(id)
+    let shovels=await Shovel.findById(id)
     res.status(200).json(shovels)
   })
+
 module.exports=shovelrouter
