@@ -48,7 +48,6 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     try {
         let {dumpId,loc}=req.body;
         let dumper= await Dumper.findById(dumpId)
-        dumper.location=loc
         dumper.status=0
         dumper.filled=0;
         dumper.location=dumper.pos
@@ -111,6 +110,7 @@ dumperrouter.post("/getShovel",async (req,res)=>{
         await dumper.save()
         
         let l=finalShovel.listConn
+        finalShovel.dumperConn=dumper._id
         if(finalShovel.dumperConn!=""){
 
             if(!l.includes(sh_id)){
