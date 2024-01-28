@@ -37,6 +37,10 @@ shovelrouter.post("/announce",async (req,res)=>{
         res.status(500).json({msg:error.message})
     }
 })
+shovelrouter.get("/accnmt",async (req,res)=>{
+    const d=await Annc.find({})
+    res.status(200).json(d)
+})
 shovelrouter.post("/addMessage",async (req,res)=>{
     try {
         const {body,sender,type}=req.body
