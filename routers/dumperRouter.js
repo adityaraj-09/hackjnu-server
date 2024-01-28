@@ -70,6 +70,11 @@ dumperrouter.get("/active",async (req,res)=>{
    
     res.status(200).json(dumpers)
   })
+  dumperrouter.get("/vehicles",async (req,res)=>{
+    const dumpers = await Dumper.find({});
+    const shovels = await Shovel.find({});
+    res.status(200).json({dumpers,shovels})
+  })
 
   dumperrouter.post("/reset",async (req,res)=>{
     try {
