@@ -34,6 +34,33 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
         res.status(500).json({msg:error.message})
     }
 })
+dumperrouter.get("/active",async (req,res)=>{
+    try {
+        const dumpers = await Dumper.find({});
+    const shovels = await Shovel.find({});
+    
+    let arr = [0, 0];
+    arr[1] = shovels.length;
+    
+    let array = [0, 0];
+    array[1] = dumpers.length;
+    
+    for (const dumper of dumpers) {
+        if (dumper.status === 1) {
+            array[0] = array[0] + 1;
+        }
+    }
+    
+    for (const shovel of shovels) {
+        if (shovel.status[0] === 1) {
+            arr[0] = arr[0] + 1;
+        }
+    }
+    res.status(200).json({dumpers:array,shovels:arr})
+    } catch (error) {
+        res.status(500).json({msg:error.message})
+    }
+})
   dumperrouter.get("/a",async (req,res)=>{
     const d=getDistanceFromLatLonInKm(0,0,10,10)
     res.status(200).json({d})
@@ -67,6 +94,7 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
         let dumper= await Dumper.findById(dumpId)
         let shovel=await Shovel.findById(dumper.shovelConn)
         shovel.dumperConn=""
+        shovel.status=[0,0]
         await shovel.save()
         dumper.shovelConn=""
         dumper.location=loc

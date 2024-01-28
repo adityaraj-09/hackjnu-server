@@ -9,7 +9,7 @@ const dumperRouter=require("./routers/dumperRouter")
 const app=express();
 
 const DB="mongodb+srv://aditya:adi123@cluster0.pxaqtot.mongodb.net/?retryWrites=true&w=majority"
-const port= 3000;
+const port= 3001;
 mongoose.connect(DB).then(async()=>{
     console.log("connected to mongodb")
 }).catch((e) => {
